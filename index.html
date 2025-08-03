@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="background">
         <div class="max-width">
@@ -27,7 +25,8 @@
 
                 <div class="main-nav">
                     <div class="nav-left">
-                        <h1 class="logo">Bellisimo Pizza</h1>
+                        <img src="assets/billemo.png" alt="" class="billemo">
+                        <!-- <h1 class="logo">Bellisimo Pizza</h1> -->
                         <button class="city-selector open-toshkent">
                             <i class='bx bx-map'></i>
                             <span>Toshkent</span>
@@ -40,7 +39,7 @@
                         <button class="halal-btn open-halal">
                             <img src="assets/halol-.png" alt="Halol sertifikat">
                         </button>
-                        <span class="cart-amount">$0</span>
+                        <button class="open-savat-btn">Savatcha | 0</button>
                         <button class="login-btn open-kirish">Kirish</button>
                     </div>
                 </div>
@@ -50,26 +49,13 @@
 
     <div class="modal-toshkent">
         <div class="modal-content">
-            <p>Samarqand</p>
-            <p>Andijon</p>
-            <p>Qo'qon</p>
-            <p>Chirchiq</p>
-            <p>Namangan</p>
-            <p>Buxoro</p>
-            <p>Farg'ona</p>
-            <p>Olmaliq</p>
-            <p>Nurafshon</p>
-            <p>Angren</p>
-            <p>Qarshi</p>
-            <p>Jizzax</p>
-            <p>Guliston</p>
-            <p>Nukus</p>
+            <!-- Shaharlar JavaScript orqali to'ldiriladi -->
         </div>
     </div>
 
     <div class="modal-kirish">
         <div class="modal-content-2">
-            <h2>Login</h2>
+            <h2>Kirish</h2>
             <span class="x">&times;</span>
             <input type="tel" placeholder="Telefon raqamingiz">
             <button>Kodni olish</button>
@@ -78,7 +64,6 @@
 
     <div class="modal-halal">
         <div class="modal-content-3">
-
             <header class="main-header">
                 <div class="top-header">
                     <div class="header-links">
@@ -107,7 +92,7 @@
                         <button class="halal-btn open-halal">
                             <img src="assets/halol-.png" alt="Halol sertifikat">
                         </button>
-                        <span class="cart-amount">$0</span>
+                        <button class="open-savat-btn">Savatcha | 0</button>
                         <button class="login-btn open-kirish">Kirish</button>
                     </div>
                 </div>
@@ -151,169 +136,42 @@
 
     <div class="slider-container">
         <button class="arrow left" onclick="prevImage()">&#8592;</button>
-        <img id="slider-image" src="assets/img1.png" alt="Uzum product">
+        <img id="slider-image" src="assets/img1.png" alt="Slayder rasmi">
         <button class="arrow right" onclick="nextImage()">&#8594;</button>
     </div>
-
 
     <div class="max-width">
         <div class="div-max-2 display">
             <div class="div-left">
-                <button class="btn-yatkazib-berish">Yetkazib berish</button>
+                <button class="btn-yatkazib-berish active">Yetkazib berish</button>
                 <button class="btn-olib-berish">Olib ketish</button>
             </div>
             <div class="div-right display">
                 <form action="" class="display">
-                    <input type="text" placeholder="yetkazib berish manzilni tanlang">
+                    <input type="text" placeholder="Yetkazib berish manzilni tanlang">
                     <i class='bx bxs-pencil'></i>
                 </form>
             </div>
         </div>
     </div>
 
-
     <div class="max-width">
         <div class="div-max-3 display">
             <div class="maxsulotlar">
-                <button>Kombo</button>
-                <button>Pista</button>
-                <button>Gazaklar</button>
-                <button>Ichimliklar</button>
-                <button>Salatlar</button>
-                <button>Desertlar</button>
-                <button>Souslar</button>
+                <!-- Kategoriyalar JavaScript orqali to'ldiriladi -->
             </div>
-
-
             <div class="savatga">
                 <button class="open-savat-btn">Savatcha | 0</button>
             </div>
         </div>
     </div>
+
     <div class="max-width">
-
         <div class="kombo">
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 2 + 1">
-                </button>
-                <h3>Kombo 2 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>25 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>35 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 4 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>38 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>20 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>33 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>40 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>38 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>31 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
-            <div class="div-1">
-                <button class="open-img">
-                    <img src="assets/div-1-.png" alt="Kombo 3 + 1">
-                </button>
-                <h3>Kombo 3 + 1</h3>
-                <p>O‘z uchligingizni to‘plang va faqat ikkitasi uchun to‘lang! O‘z mukammal kombongizni yarating:
-                    istalgan
-                    uchta pitsani (25 cm) tanlang va faqat ikkitasi uchun to‘lang. Kombo narxi 119 000 so‘mdan
-                    boshlanadi
-                </p>
-                <h4>32 000 so`m</h4>
-                <button class="add-to-cart-btn">Savatga yuborish</button>
-            </div>
+            <!-- Mahsulotlar JavaScript orqali to'ldiriladi -->
         </div>
     </div>
-    
+
     <div class="modal-img">
         <div class="modal-content-img">
             <span class="x close-img">&times;</span>
@@ -339,8 +197,39 @@
         </div>
     </div>
 
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section logo-section">
+                <p>RAQAMGA QO'NG'IROQ QILING – <strong>1174</strong></p>
+            </div>
 
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">Biz haqimizda</a></li>
+                    <li><a href="#">Ommaviy oferta</a></li>
+                    <li><a href="#">Maxfiylik siyosati</a></li>
+                    <li><a href="#">Halol sertifikati</a></li>
+                    <li><a href="#">Restoranlar</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <ul>
+                    <li><a href="#">Bizning ish o'rinlarimiz</a></li>
+                    <li><a href="#">Franshiza</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <p>BIZNI KUZATIB BORING</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2016–2025 Bellissimo Pizza.</p>
+        </div>
+    </footer>
+    
     <script src="script.js"></script>
 </body>
-
 </html>

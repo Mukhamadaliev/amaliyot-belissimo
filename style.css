@@ -8,9 +8,11 @@
 
 :root {
     --primary-blue: #2563eb;
+    --primary-red: #d62c1a;
     --text-dark: #333;
     --text-light: #666;
     --border-color: #e0e0e0;
+    --green: #55c155;
 }
 
 body {
@@ -145,11 +147,6 @@ body {
     height: auto;
 }
 
-.cart-amount {
-    font-weight: bold;
-    font-size: 16px;
-}
-
 .login-btn {
     background-color: var(--primary-blue);
     color: white;
@@ -163,6 +160,21 @@ body {
 
 .login-btn:hover {
     background-color: #1d4ed8;
+}
+
+.open-savat-btn {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.open-savat-btn:hover {
+    background-color: #b82414;
 }
 
 /* Modal stili */
@@ -268,10 +280,431 @@ body {
     max-width: 100%;
     height: auto;
     margin: 20px 0;
-    border-radius: 5px;
+    border-radius: 8px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Slayder stil */
+.slider-container {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    margin: 20px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#slider-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow.left {
+    left: 20px;
+}
+
+.arrow.right {
+    right: 20px;
+}
+
+/* Yetkazib berish/Olib ketish bo'limi */
+.div-max-2 {
+    padding: 20px 0;
+}
+
+.div-left {
+    border-radius: 35px;
+    background-color: #f5f5f5;
+    padding: 5px;
+    color: var(--text-dark);
+    width: 350px;
+    display: flex;
+}
+
+.btn-yatkazib-berish,
+.btn-olib-berish {
+    padding: 10px 20px;
+    border-radius: 35px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btn-yatkazib-berish {
+    background-color: white;
+    color: var(--text-dark);
+}
+
+.btn-olib-berish {
+    background-color: transparent;
+    color: var(--text-light);
+}
+
+.btn-yatkazib-berish.active {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.btn-olib-berish.active {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.div-right form {
+    display: flex;
+    align-items: center;
+    width: 500px;
+}
+
+.div-right input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--primary-red);
+    color: var(--text-dark);
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+.div-right input:focus {
+    outline: none;
+}
+
+.bxs-pencil {
+    color: white;
+    background-color: var(--primary-red);
+    padding: 13.8px 15px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+
+}
+
+/* Kategoriyalar menyusi */
+.maxsulotlar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.maxsulotlar::-webkit-scrollbar {
+    display: none;
+}
+
+.maxsulotlar button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.maxsulotlar button:hover {
+    background-color: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+.maxsulotlar button.active {
+    background-color: var(--green);
+    color: white;
+    border-color: var(--green);
+    font-weight: bold;
+}
+
+/* Mahsulotlar ro'yxati */
+.kombo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px 0;
+}
+
+.div-1 {
+    width: calc(33.333% - 20px);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background: white;
+}
+
+.div-1:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.div-1 .open-img {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.div-1 img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.div-1 h3 {
+    color: var(--primary-red);
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.div-1 p {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.div-1 h4 {
+    color: var(--text-dark);
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #b82414;
+}
+
+/* Mahsulot rasmi modali */
+.modal-img {
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+}
+
+.modal-content-img {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-img-image {
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.modal-img-title {
+    color: var(--primary-red);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.modal-img-description {
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.modal-img-price {
+    color: var(--text-dark);
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-btn-modal {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn-modal:hover {
+    background-color: #b82414;
+}
+
+/* Savat modali */
+.modal-savat {
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+}
+
+.modal-content-savat {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+}
+
+.savat-items {
+    margin: 20px 0;
+}
+
+.savat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+.savat-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.savat-item-info {
+    flex-grow: 1;
+}
+
+.savat-item-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.savat-item-price {
+    color: var(--primary-red);
+    font-size: 14px;
+}
+
+.savat-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.savat-item-quantity button {
+    background: #f5f5f5;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.savat-item-quantity button:hover {
+    background-color: #e0e0e0;
+}
+
+.savat-item-quantity span {
+    margin: 0 5px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.remove-item {
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+    padding: 5px;
+}
+
+.remove-item:hover {
+    color: #b82414;
+}
+
+.savat-total {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.savat-total h3 {
+    font-size: 18px;
+}
+
+.total-price {
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+.buy-btn {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.buy-btn:hover {
+    background-color: #b82414;
 }
 
 /* Footer stil */
@@ -346,362 +779,18 @@ body {
     font-size: 14px;
 }
 
-.slider-container {
-    width: 1200px;
+.billemo{
+    width: 170px;
     height: auto;
-    margin: auto;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: contain;
 }
-
-#slider-image {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ffffffcc;
-    border: none;
-    font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.arrow.left {
-    left: 3px;
-}
-
-.arrow.right {
-    right: 3px;
-}
-
-
-
-.div-max-2 {
-    padding: 10px 0px;
-}
-
-.div-left {
-    border-radius: 35px;
-    background-color: gray;
-    padding: 15px;
-    color: white;
-    width: 350px;
-    text-align: center;
-}
-
-.btn-yatkazib-berish {
-    padding: 10px 20px;
-    background-color: white;
-    border-radius: 35px;
-    border: none;
-    color: black;
-}
-
-.btn-olib-berish {
-    padding: 10px 20px;
-    background-color: gray;
-    border-radius: 35px;
-    border: none;
-    color: rgba(0, 0, 0, 0.759);
-}
-
-.div-right form {
-    padding: 10px 0px;
-}
-
-form {
-    width: 500px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid orangered;
-    color: black;
-    border-right: none;
-}
-
-input:focus {
-    border: 1px solid orangered;
-    outline: none;
-    border-right: none;
-}
-
-.bxs-pencil {
-    color: orangered;
-    border: 1px solid orangered;
-    border-left: none;
-    padding: 10px;
-}
-
-.div-max-3 {
-    padding: 10px 0px;
-}
-
-.maxsulotlar button {
-    padding: 5px 12px;
-    border-radius: 10px;
-    border: none;
-}
-
-.maxsulotlar button:hover {
-    background-color: rgb(85, 193, 85);
-    backdrop-filter: blue(25px);
-}
-
-.savatga button {
-    padding: 5px 12px;
-    border-radius: 10px;
-    border: none;
-    background-color: red;
-    color: white;
-}
-
-.kombo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-    padding: 20px 0;
-}
-
-.div-1 {
-    width: 350px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.div-1:hover {
-    transform: translateY(-5px);
-}
-
-.div-1 .open-img {
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    width: 100%;
-}
-
-.div-1 img {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.div-1 h3 {
-    color: #d62c1a;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.div-1 p {
-    color: #555;
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-
-.div-1 h4 {
-    color: #333;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.add-to-cart-btn, .add-to-cart-btn-modal {
-    background-color: #d62c1a;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s;
-}
-
-.add-to-cart-btn:hover, .add-to-cart-btn-modal:hover {
-    background-color: #b82414;
-}
-
-/* Mahsulot rasmi modali stili */
-.modal-img {
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-}
-
-.modal-content-img {
-    background: white;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 800px;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.modal-content-img .x {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-}
-
-.modal-img-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.modal-img-title {
-    color: #d62c1a;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.modal-img-description {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 15px;
-}
-
-.modal-img-price {
-    color: #333;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-/* Savat modal stili */
-.modal-savat {
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-}
-
-.modal-content-savat {
-    background: white;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.savat-items {
-    margin: 20px 0;
-}
-
-.savat-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.savat-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.savat-item-info {
-    flex-grow: 1;
-    padding: 0 15px;
-}
-
-.savat-item-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.savat-item-price {
-    color: #d62c1a;
-}
-
-.savat-item-quantity {
-    display: flex;
-    align-items: center;
-}
-
-.savat-item-quantity button {
-    background: #f5f5f5;
-    border: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-.savat-item-quantity button:hover {
-    background-color: #e0e0e0;
-}
-
-.savat-item-quantity span {
-    margin: 0 10px;
-}
-
-.remove-item {
-    color: #ff0000;
-    cursor: pointer;
-    margin-left: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.remove-item:hover {
-    color: #b82414;
-}
-
-.savat-total {
-    text-align: right;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.buy-btn {
-    background-color: #d62c1a;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 15px;
-    width: 100%;
-    transition: background-color 0.3s;
-}
-
-.buy-btn:hover {
-    background-color: #b82414;
-}
-
 /* Responsive dizayn */
+@media (max-width: 992px) {
+    .div-1 {
+        width: calc(50% - 20px);
+    }
+}
+
 @media (max-width: 768px) {
     .top-header {
         flex-direction: column;
@@ -731,6 +820,7 @@ input:focus {
         margin-top: 15px;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
     }
 
     .modal-content,
@@ -757,20 +847,25 @@ input:focus {
         gap: 15px;
     }
 
+    .div-left,
     .div-right form {
         width: 100%;
     }
 
-    .kombo {
-        justify-content: center;
-    }
-
-    .div-1 {
+    .div-right input {
         width: 100%;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+    .div-1 {
+        width: 100%;
+    }
+
+    .maxsulotlar {
+        justify-content: center;
+    }
+
     .city-selector {
         padding: 6px 10px;
         font-size: 13px;
@@ -780,7 +875,8 @@ input:focus {
         font-size: 13px;
     }
 
-    .login-btn {
+    .login-btn,
+    .open-savat-btn {
         padding: 6px 15px;
         font-size: 13px;
     }
@@ -788,13 +884,6 @@ input:focus {
     .modal-content p {
         padding: 8px 12px;
         font-size: 14px;
-    }
-
-    .maxsulotlar {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
     }
 
     .div-max-3 {
