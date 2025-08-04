@@ -90,13 +90,12 @@ const products = [
     },
     {
         id: 12,
-        title: "Chili sous",
+        title: "Pishloqli sous",
         description: "Pishloqli sous",
         price: "8 000 so`m",
         image: "assets/Pishloqli sous.png",
         category: "Souslar"
     }
-
 ];
 
 // Shaharlar ro'yxati
@@ -165,6 +164,11 @@ const slider = {
 
     init: function () {
         this.showImage(this.currentIndex);
+        // Slayder tugmalariga event listener qo'shish
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        if (prevBtn) prevBtn.addEventListener('click', () => this.prevImage());
+        if (nextBtn) nextBtn.addEventListener('click', () => this.nextImage());
     },
 
     showImage: function (index) {
@@ -194,14 +198,28 @@ const cart = {
     init: function () {
         this.updateCartButton();
         this.setupBuyButton();
-
-        // Savat ochish tugmalariga event listener qo'shish
-        if (modals.savat.openBtn) {
-            modals.savat.openBtn.forEach(btn => {
+        
+        // Savat tugmalariga event listener qo'shish
+        if (this.cartButtons) {
+            this.cartButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    modals.savat.modal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
+                    openModal(modals.savat);
                 });
+            });
+        }
+        
+        // Savat ichidagi tugmalar uchun event listener
+        if (this.itemsContainer) {
+            this.itemsContainer.addEventListener('click', (e) => {
+                const target = e.target;
+                const itemId = target.dataset.id;
+                if (target.classList.contains('increase')) {
+                    this.increaseQuantity(itemId);
+                } else if (target.classList.contains('decrease')) {
+                    this.decreaseQuantity(itemId);
+                } else if (target.classList.contains('remove-item')) {
+                    this.removeItem(itemId);
+                }
             });
         }
     },
@@ -223,7 +241,7 @@ const cart = {
     },
 
     increaseQuantity: function (id) {
-        const item = this.items.find(item => item.id === id);
+        const item = this.items.find(item => item.id == id);
         if (item) {
             item.quantity++;
             this.render();
@@ -231,21 +249,24 @@ const cart = {
     },
 
     decreaseQuantity: function (id) {
-        const item = this.items.find(item => item.id === id);
+        const item = this.items.find(item => item.id == id);
         if (item && item.quantity > 1) {
             item.quantity--;
             this.render();
+        } else if (item && item.quantity === 1) {
+            this.removeItem(id);
         }
     },
 
     removeItem: function (id) {
-        this.items = this.items.filter(item => item.id !== id);
+        this.items = this.items.filter(item => item.id != id);
         this.updateCartButton();
         this.render();
     },
 
     calculateTotal: function () {
         return this.items.reduce((total, item) => {
+            // "25 000 so`m" formatini raqamga o'tkazish
             const price = parseFloat(item.price.replace(/[^\d]/g, '')) || 0;
             return total + (price * item.quantity);
         }, 0);
@@ -253,60 +274,45 @@ const cart = {
 
     updateCartButton: function () {
         const totalItems = this.items.reduce((total, item) => total + item.quantity, 0);
-        this.cartButtons.forEach(btn => {
-            btn.textContent = `Savatcha | ${totalItems}`;
-        });
+        const cartCountSpan = document.querySelector('.savat-count');
+        if(cartCountSpan) {
+            cartCountSpan.textContent = totalItems > 0 ? totalItems : '';
+        }
     },
 
     render: function () {
-        this.itemsContainer.innerHTML = '';
+        if (!this.itemsContainer || !this.totalPriceElement) return;
 
+        this.itemsContainer.innerHTML = '';
         if (this.items.length === 0) {
             this.itemsContainer.innerHTML = '<p>Savat bo\'sh</p>';
             this.totalPriceElement.textContent = '0';
-            return;
+        } else {
+            this.items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'savat-item';
+                itemElement.innerHTML = `
+                    <div class="savat-item-info">
+                        <img src="${item.image}" alt="${item.title}" class="savat-item-img">
+                        <div class="item-details">
+                            <div class="savat-item-title">${item.title}</div>
+                            <div class="savat-item-price">${item.price}</div>
+                        </div>
+                    </div>
+                    <div class="savat-item-quantity">
+                        <button class="decrease" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase" data-id="${item.id}">+</button>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}">
+                        <i class='bx bxs-trash-alt'></i>
+                    </button>
+                `;
+                this.itemsContainer.appendChild(itemElement);
+            });
+            const total = this.calculateTotal();
+            this.totalPriceElement.textContent = total.toLocaleString('uz-UZ');
         }
-
-        this.items.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.className = 'savat-item';
-            itemElement.innerHTML = `
-        <img src="${item.image}" alt="${item.title}">
-        <div class="savat-item-info">
-          <div class="savat-item-title">${item.title}</div>
-          <div class="savat-item-price">${item.price}</div>
-        </div>
-        <div class="savat-item-quantity">
-          <button class="decrease" data-id="${item.id}">-</button>
-          <span>${item.quantity}</span>
-          <button class="increase" data-id="${item.id}">+</button>
-        </div>
-        <span class="remove-item" data-id="${item.id}">&times;</span>
-      `;
-            this.itemsContainer.appendChild(itemElement);
-        });
-
-        const total = this.calculateTotal();
-        this.totalPriceElement.textContent = total.toLocaleString('uz-UZ');
-
-        // Event listenerlarni qo'shish
-        document.querySelectorAll('.increase').forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.increaseQuantity(e.target.dataset.id);
-            });
-        });
-
-        document.querySelectorAll('.decrease').forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.decreaseQuantity(e.target.dataset.id);
-            });
-        });
-
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.removeItem(e.target.dataset.id);
-            });
-        });
     },
 
     setupBuyButton: function () {
@@ -317,16 +323,12 @@ const cart = {
                     alert('Savat bo\'sh. Iltimos, mahsulot qo\'shing.');
                     return;
                 }
-
                 const total = this.calculateTotal();
-                const address = document.querySelector('.div-right input')?.value || 'Aniqlanmagan';
-
+                const address = document.querySelector('.div-right input[type="text"]')?.value || 'Manzil kiritilmagan';
                 alert(`Buyurtma berildi!\nMijoz: ${user.name}\nTelefon: ${user.phone}\nManzil: ${address}\nYetkazish turi: ${user.deliveryType}\nJami: ${total.toLocaleString('uz-UZ')} so'm`);
-
                 this.items = [];
                 this.render();
-                modals.savat.modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                closeModal(modals.savat);
             });
         }
     }
@@ -334,29 +336,33 @@ const cart = {
 
 // Asosiy dastur
 document.addEventListener('DOMContentLoaded', function () {
+    // Sahifa yuklanganda barcha kerakli funksiyalarni ishga tushirish
+    
     // Shahar modalini to'ldirish
-    if (modals.toshkent.content) {
-        modals.toshkent.content.innerHTML = '';
+    const cityListContainer = modals.toshkent.content;
+    if (cityListContainer) {
+        cityListContainer.innerHTML = '';
         cities.forEach(city => {
             const p = document.createElement('p');
             p.textContent = city;
-            modals.toshkent.content.appendChild(p);
+            p.addEventListener('click', function () {
+                const citySelector = document.querySelector('.city-selector span');
+                if (citySelector) citySelector.textContent = this.textContent;
+                closeModal(modals.toshkent);
+            });
+            cityListContainer.appendChild(p);
         });
     }
 
     // Kategoriyalar menyusini to'ldirish
     const categoryContainer = document.querySelector('.maxsulotlar');
     if (categoryContainer) {
-        categoryContainer.innerHTML = '';
-
-        // "Barchasi" tugmasini qo'shamiz
+        // "Barchasi" tugmasini qo'shish
         const allButton = document.createElement('button');
         allButton.textContent = 'Barchasi';
         allButton.classList.add('active');
         allButton.addEventListener('click', function () {
-            document.querySelectorAll('.maxsulotlar button').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.maxsulotlar button').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             renderProducts(products);
         });
@@ -365,31 +371,18 @@ document.addEventListener('DOMContentLoaded', function () {
         categories.forEach((category) => {
             const button = document.createElement('button');
             button.textContent = category;
-
             button.addEventListener('click', function () {
-                document.querySelectorAll('.maxsulotlar button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
+                document.querySelectorAll('.maxsulotlar button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 filterProducts(category);
-
-                // header elementiga sticky style qo'shish
-                const header = document.querySelector('header');
-                if (header) {
-                    header.style.position = 'sticky';
-                    header.style.top = '0';
-                    header.style.zIndex = '100';
-                    header.style.background = '#fff';
-                }
             });
-
             categoryContainer.appendChild(button);
         });
     }
 
-    // Mahsulotlarni chiqarish
+    // Mahsulotlarni sahifaga chiqarish
     renderProducts(products);
-
+    
     // Modal tizimini ishga tushirish
     initModals();
 
@@ -399,21 +392,35 @@ document.addEventListener('DOMContentLoaded', function () {
     // Savatni ishga tushirish
     cart.init();
 
-    // Yetkazib berish/olib ketish tugmalari
+    // Yetkazib berish/olib ketish tugmalari uchun event listeners
     const deliveryBtn = document.querySelector('.btn-yatkazib-berish');
     const pickupBtn = document.querySelector('.btn-olib-berish');
-
     if (deliveryBtn && pickupBtn) {
         deliveryBtn.addEventListener('click', function () {
             user.deliveryType = "yetkazib berish";
             deliveryBtn.classList.add('active');
             pickupBtn.classList.remove('active');
         });
-
         pickupBtn.addEventListener('click', function () {
             user.deliveryType = "olib ketish";
             pickupBtn.classList.add('active');
             deliveryBtn.classList.remove('active');
+        });
+    }
+
+    // `Kirish` formasi uchun
+    const loginForm = document.querySelector('.form-kirish');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const phoneInput = document.getElementById('phone-number-input');
+            if (phoneInput && phoneInput.value.length > 5) {
+                user.phone = phoneInput.value;
+                alert(`Tasdiqlash kodingiz: ${Math.floor(1000 + Math.random() * 9000)}`);
+                closeModal(modals.kirish);
+            } else {
+                alert("Iltimos, to'g'ri telefon raqam kiriting.");
+            }
         });
     }
 });
@@ -421,44 +428,43 @@ document.addEventListener('DOMContentLoaded', function () {
 // Mahsulotlarni chiqarish funksiyasi
 function renderProducts(productsToRender) {
     const productsContainer = document.querySelector('.kombo');
-    if (productsContainer) {
-        productsContainer.innerHTML = '';
+    if (!productsContainer) return;
 
-        if (productsToRender.length === 0) {
-            productsContainer.innerHTML = '<p>Ushbu kategoriyada mahsulotlar mavjud emas</p>';
-            return;
-        }
-
-        productsToRender.forEach(product => {
-            const productElement = document.createElement('div');
-            productElement.className = 'div-1';
-            productElement.innerHTML = `
-        <button class="open-img">
-          <img src="${product.image}" alt="${product.title}">
-        </button>
-        <h3>${product.title}</h3>
-        <p>${product.description}</p>
-        <h4>${product.price}</h4>
-        <button class="add-to-cart-btn" data-id="${product.id}">Savatga yuborish</button>
-      `;
-
-            productsContainer.appendChild(productElement);
-
-            // Mahsulot rasmini ko'rish uchun
-            productElement.querySelector('.open-img').addEventListener('click', function () {
-                openProductModal(product);
-            });
-
-            // Savatga qo'shish
-            productElement.querySelector('.add-to-cart-btn').addEventListener('click', function () {
-                const productId = parseInt(this.getAttribute('data-id'));
-                const productToAdd = products.find(p => p.id === productId);
-                if (productToAdd) {
-                    cart.addItem(productToAdd);
-                }
-            });
-        });
+    productsContainer.innerHTML = '';
+    if (productsToRender.length === 0) {
+        productsContainer.innerHTML = '<p>Ushbu kategoriyada mahsulotlar mavjud emas</p>';
+        return;
     }
+
+    productsToRender.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'div-1';
+        productElement.innerHTML = `
+            <button class="open-img" data-id="${product.id}">
+                <img src="${product.image}" alt="${product.title}">
+            </button>
+            <h3>${product.title}</h3>
+            <p>${product.description}</p>
+            <h4>${product.price}</h4>
+            <button class="add-to-cart-btn" data-id="${product.id}">Savatga yuborish</button>
+        `;
+        productsContainer.appendChild(productElement);
+
+        // Mahsulot rasmini ko'rish uchun event listener
+        productElement.querySelector('.open-img').addEventListener('click', function () {
+            const productToView = products.find(p => p.id == this.dataset.id);
+            if(productToView) openProductModal(productToView);
+        });
+
+        // Savatga qo'shish uchun event listener
+        productElement.querySelector('.add-to-cart-btn').addEventListener('click', function () {
+            const productId = parseInt(this.dataset.id);
+            const productToAdd = products.find(p => p.id === productId);
+            if (productToAdd) {
+                cart.addItem(productToAdd);
+            }
+        });
+    });
 }
 
 // Mahsulot modalini ochish
@@ -469,93 +475,37 @@ function openProductModal(product) {
         modal.modal.querySelector('.modal-img-title').textContent = product.title;
         modal.modal.querySelector('.modal-img-description').textContent = product.description;
         modal.modal.querySelector('.modal-img-price').textContent = product.price;
-
-        // Savatga qo'shish tugmasi
         const addBtn = modal.modal.querySelector('.add-to-cart-btn-modal');
         if (addBtn) {
             addBtn.onclick = function () {
                 cart.addItem(product);
-                modal.modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                closeModal(modal);
             };
         }
-
-        modal.modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        openModal(modal);
     }
 }
 
 // Modal tizimini ishga tushirish
 function initModals() {
-    // Har bir modal uchun event listenerlar
     Object.keys(modals).forEach(modalKey => {
         const modal = modals[modalKey];
-
-        // Ochish
-        if (modal.openBtn && modal.modal) {
-            // Agar openBtn NodeList bo'lsa (bir nechta element)
-            if (modal.openBtn.length) {
-                modal.openBtn.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        handleModalOpen(e, modal);
-                    });
-                });
-            } else {
-                // Agar openBtn bitta element bo'lsa
-                modal.openBtn.addEventListener('click', (e) => {
-                    handleModalOpen(e, modal);
-                });
+        if (modal.openBtn) {
+            if (modal.openBtn.length) { // NodeList bo'lsa
+                modal.openBtn.forEach(btn => btn.addEventListener('click', () => openModal(modal)));
+            } else { // Bitta element bo'lsa
+                modal.openBtn.addEventListener('click', () => openModal(modal));
             }
         }
-
-        // Yopish (contentdan tashqariga bosilganda)
-        if (modal.modal && modal.content) {
-            modal.modal.addEventListener('click', (e) => {
-                if (e.target === modal.modal) {
-                    closeModal(modal);
-                }
-            });
-        }
-
-        // Yopish tugmasi
-        if (modal.closeBtn && modal.modal) {
-            modal.closeBtn.addEventListener('click', () => {
-                closeModal(modal);
-            });
-        }
+        if (modal.closeBtn) modal.closeBtn.addEventListener('click', () => closeModal(modal));
+        if (modal.modal) modal.modal.addEventListener('click', (e) => {
+            if (e.target === modal.modal) closeModal(modal);
+        });
     });
 
-    // Shahar tanlash
-    if (modals.toshkent.content) {
-        modals.toshkent.content.querySelectorAll('p').forEach(option => {
-            option.addEventListener('click', function () {
-                const cityName = this.textContent;
-                const citySelector = document.querySelector('.city-selector span');
-                if (citySelector) {
-                    citySelector.textContent = cityName;
-                }
-                closeModal(modals.toshkent);
-            });
-        });
-    }
-
-    // Kirish modali - kod olish
-    if (modals.kirish.content) {
-        const getCodeBtn = modals.kirish.content.querySelector('button');
-        if (getCodeBtn) {
-            getCodeBtn.addEventListener('click', function () {
-                const code = Math.floor(1000 + Math.random() * 9000);
-                alert(`Tasdiqlash kodingiz: ${code}\nIsm: ${user.name}`);
-                closeModal(modals.kirish);
-            });
-        }
-    }
-
-    // ESC tugmasi bilan yopish
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            Object.keys(modals).forEach(modalKey => {
-                const modal = modals[modalKey];
+            Object.values(modals).forEach(modal => {
                 if (modal.modal && modal.modal.style.display === 'flex') {
                     closeModal(modal);
                 }
@@ -565,23 +515,19 @@ function initModals() {
 }
 
 // Modal ochish funksiyasi
-function handleModalOpen(e, modal) {
-    e.stopPropagation();
-
-    // Kirish modali uchun telefon raqamini to'ldirish
-    if (modal === modals.kirish) {
-        const phoneInput = modal.content.querySelector('input[type="tel"]');
-        if (phoneInput) phoneInput.value = user.phone;
+function openModal(modal) {
+    if (modal && modal.modal) {
+        modal.modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
-
-    modal.modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 // Modal yopish funksiyasi
 function closeModal(modal) {
-    modal.modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    if (modal && modal.modal) {
+        modal.modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // Mahsulotlarni filter qilish
@@ -590,6 +536,6 @@ function filterProducts(category) {
     renderProducts(filteredProducts);
 }
 
-// Global funksiyalar
+// Slayder funksiyalarini global scopega chiqarish
 window.nextImage = slider.nextImage.bind(slider);
 window.prevImage = slider.prevImage.bind(slider);
